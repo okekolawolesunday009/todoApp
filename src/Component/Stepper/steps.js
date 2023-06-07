@@ -7,13 +7,13 @@ export const Steps =[
     },
     {
         step: 2,
-        path:"active",
+        path:"/active",
         title: "Active",
     
     },
     {
         step: 3,
-        path:"completed",
+        path:"/completed",
         title: "Completed",
     
     },

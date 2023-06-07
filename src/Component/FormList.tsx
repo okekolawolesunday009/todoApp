@@ -1,4 +1,5 @@
 import React from 'react'
+import TaskProp from './TaskProp';
 interface FormListProps {
   todos: string[];
 }
@@ -7,7 +8,7 @@ const FormList: React.FC<FormListProps> = ({ todos }) => {
   return (
     <div>
       {todos.map((todo: string, index: number) => (
-        <li key={index}>{todo}</li>
+        <TaskProp key = {index} task = {todo}/>
       ))}
     </div>
   )

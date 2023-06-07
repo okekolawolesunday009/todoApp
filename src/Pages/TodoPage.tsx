@@ -1,10 +1,8 @@
 import Button from "../Component/Button";
 import Input from "../Component/Input";
 import { Link, Outlet} from 'react-router-dom';
-import StepperList from "../Component/Stepper/StepperList";
-import { Steps } from "../Component/Stepper/steps";
-import react, {useState, useEffect} from 'react'
-import FormList from "../Component/FormList";
+import react, {useState, useEffect, } from 'react';
+
 type TodoProps = {
     setTodos?: any
     todo?: any
@@ -12,7 +10,8 @@ type TodoProps = {
 
 
 export const All = ({setTodos, todo}: TodoProps)=>{
-  
+
+ 
  const addTodo = (todo: string) => {
     setTodos((prev: any) => [...prev, todo]);
   };
@@ -73,8 +72,6 @@ export const Home = ()=>{
     return(
        
         <div className = "">
-            
-          
             <Outlet/>
          </div>
     

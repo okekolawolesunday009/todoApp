@@ -5,6 +5,7 @@ import StepperList from './Component/Stepper/StepperList';
 import { Steps } from './Component/Stepper/steps';
 import { Active, All, Home, Completed, NoMatch } from './Pages/TodoPage';
 import FormList from './Component/FormList';
+import TaskProp from './Component/TaskProp';
 // import { from './Pages/TodoPage.tsx';
 
 
@@ -15,7 +16,11 @@ export type TodoProps = {
 
 }
 function App() {
-  const [todos, setTodos] = useState<any>([1, 2, 3]);
+  const [todos, setTodos] = useState<any>([
+    "Do coding Challenges", 
+    "Do coding Challenges",
+    "Do coding Challenges"
+  ]);
 
   
   

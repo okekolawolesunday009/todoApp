@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import { useLocation } from 'react-router-dom';
 import { stepsIcon } from './StepIcon.js';
 
-interface LoadedStepProps extends StepperProps {
+export interface LoadedStepProps extends StepperProps {
   step: any;
 }
 
@@ -18,7 +18,7 @@ const StepperList = ({Steps}: StepperProps) => {
     const loadedStep = Steps.find((stepItem) => stepItem.path === location.pathname) as LoadedStepProps | undefined;
     if (loadedStep && loadedStep.step) {
       setActiveStep(loadedStep.step);
-      console.log(loadedStep.step);
+      // console.log(loadedStep.step);
     }
 
   }, [Steps, location.pathname]);
@@ -27,7 +27,7 @@ const StepperList = ({Steps}: StepperProps) => {
     if ('step' in stepItem) {
       setActiveStep(stepItem.step);
     }
-    console.log(stepItem.step);
+    // console.log(stepItem.step);
 
   };
   let stepIcon: any;
@@ -53,7 +53,7 @@ const StepperList = ({Steps}: StepperProps) => {
         <StepperContainer>
           {Steps.map((stepItem, index) => (
              <Link to={stepItem.path || ''} onClick = {()=> handleItemClickIndex(stepItem)}>
-                 <Stepper key = {index} title = {stepItem.title} stepBg= {handleChange(stepItem)}/>
+                 <Stepper key = {stepItem.step} title = {stepItem.title} stepBg= {handleChange(stepItem)}/>
 
 
              </Link>
