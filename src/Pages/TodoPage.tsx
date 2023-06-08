@@ -3,7 +3,7 @@ import Input from "../Component/Input";
 import { Link, Outlet} from 'react-router-dom';
 import react, {useState, useEffect, } from 'react';
 
-type TodoProps = {
+export type TodoProps = {
     setTodos?: any
     todo?: any
 }
@@ -59,6 +59,8 @@ export const Completed = ({setTodos}: TodoProps)=>{
        
         <div className="flex flex-col space-y-4">             
         <div className = ''> <Input addTodo={addTodo} /></div>
+
+
        
         
      </div>
@@ -73,6 +75,8 @@ export const Home = ()=>{
        
         <div className = "">
             <Outlet/>
+
+           
          </div>
     
         

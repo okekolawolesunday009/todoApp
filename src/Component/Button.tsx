@@ -6,21 +6,35 @@ type ButtonTypes = 'add' | 'delete';
 interface ButtonProps {
     text: string
     addTask?: () => void
+    deleteTaskAll?: () => void
     type?: ButtonTypes
+
 }
 
-const Button: React.FC<ButtonProps> = ({text, type}: ButtonProps) => {
+
+const Button: React.FC<ButtonProps> = ({text, type, addTask, deleteTaskAll}: ButtonProps) => {
     const buttonClass = `button ${type}`;
     
-    const addTask = (event: React.MouseEvent<HTMLButtonElement>) =>{
-        console.log(event);
+  
+    const handleClick = () => {
+      if (type === 'add' && addTask) {
+        addTask();
+      } else if (type === 'delete' && deleteTaskAll) {
+        deleteTaskAll();
       }
+    };
+    
+   
+    
    
   return (
     <div>
       <button
        className ={buttonClass}
-       onClick={addTask}>
+       onClick={handleClick}
+       
+       >
+      
        {text}
        
       </button>

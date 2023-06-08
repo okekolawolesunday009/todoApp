@@ -61,9 +61,8 @@ const Input: React.FC<InputProps> = ({ addTodo, placeholder }) => {
       </div>
    
       <div>
-      {isCompleted ? (
-        <Button text = "delete all" type = 'delete' addTask = {() => addTodo}/>
-      ) : (
+      {!isCompleted && (
+     
         <Button text = "add" type = 'add' addTask = {() => addTodo}/>
  
       )
