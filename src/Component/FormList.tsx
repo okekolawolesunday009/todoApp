@@ -41,7 +41,7 @@ const FormList: React.FC<FormListProps> = ({ todos, setTodos }) => {
       return task.includes('(Completed)');
     }
     return [task.includes('(Completed)'), !task.includes('(Completed)')]
-  });
+  }).map((task) => task.replace('(Completed)', ''));
   
   // .map((task) => task.replace('(Completed)', ''));
 
