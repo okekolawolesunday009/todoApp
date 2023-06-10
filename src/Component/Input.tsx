@@ -2,7 +2,6 @@ import './input.css'
 import Button from './Button';
 import react, {useState, useEffect, } from 'react';
 import { useLocation } from 'react-router-dom';
-import StepperList, { LoadedStepProps } from "../Component/Stepper/StepperList";
 import { Steps } from "../Component/Stepper/steps";
 
 
@@ -32,9 +31,7 @@ const Input: React.FC<InputProps> = ({ addTodo, placeholder }) => {
 
     useEffect(() => {
     const loadedStep = Steps.find((stepItem) => stepItem.path === location.pathname);
-     console.log(loadedStep); 
       setIsCompleted(loadedStep?.step === 3 || false);
-      console.log(isCompleted); 
       // isCompleted = 
      
     

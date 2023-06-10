@@ -1,5 +1,7 @@
 import React from 'react'
 import './button.css';
+import { AiOutlineDelete } from 'react-icons/ai';
+
 
 type ButtonTypes = 'add' | 'delete';
 
@@ -28,11 +30,14 @@ const Button: React.FC<ButtonProps> = ({text, type, addTask, deleteTaskAll}: But
     
    
   return (
-    <div>
+    <div  className ={buttonClass}>
+      {type === 'delete' && 
+       (<AiOutlineDelete/>)
+       }
+
       <button
-       className ={buttonClass}
-       onClick={handleClick}
-       
+      
+       onClick={handleClick} 
        >
       
        {text}
