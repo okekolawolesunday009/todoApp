@@ -67,7 +67,7 @@ To clone and run this application, you'll need [Git](https://git-scm.com) and [N
 
 ```bash
 # Clone this repository
-$ git clone https://https://https://github.com/okekolawolesunday009/React_Input
+$ git clone https://github.com/okekolawolesunday009/todoApp
 
 
 ## Acknowledgements
@@ -81,5 +81,5 @@ $ git clone https://https://https://github.com/okekolawolesunday009/React_Input
 ## Contact
 
 - Website [Okekolawolesunday.netlify.app](https://Okekolawolesunday.netlify.app)
-- GitHub [@okekolawolesunday009](https://github.com/okekolawolesunday009/React_Input)
+- GitHub [@okekolawolesunday009](https://github.com/okekolawolesunday009/todoApp)
 - Twitter [@OkekolawoleSun3](//twitter.com/OkekolawoleSun3)
