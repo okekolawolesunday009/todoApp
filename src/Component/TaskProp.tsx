@@ -13,7 +13,7 @@ interface TaskProps {
 }
 
 const TaskProp: React.FC<TaskProps> = ({ task, step, onDeleteTask, selected, handleClickComplete }) => {
-  const [complete, setComplete] = useState<boolean>(false);
+  const [completedTask, setCompletedTask] = useState<boolean>(false);
   const location = useLocation();
   const [isCompleted, setIsCompleted] = useState<boolean>(false);
 
@@ -23,7 +23,7 @@ const TaskProp: React.FC<TaskProps> = ({ task, step, onDeleteTask, selected, han
   }, [location.pathname]);
 
   function handleClick() {
-    setComplete(!complete);
+    setCompletedTask(!completedTask);
     if (handleClickComplete) {
       handleClickComplete(task);
     }
@@ -42,13 +42,13 @@ const TaskProp: React.FC<TaskProps> = ({ task, step, onDeleteTask, selected, han
       <div className='flex space-x-3'>
         <input
           type="checkbox"
-          checked={complete} 
+          checked={completedTask} 
           onChange={handleClick}
           className="w-3 lg:w-5"
           name=""
           id=""
         />
-        <h2 className={`text-small lg:text-3xl ${complete ? 'strike' : ''}`}>{task}</h2>
+        <h2 className={`text-small lg:text-3xl ${completedTask ? 'strike' : ''}`}>{task}</h2>
       </div>
       {isCompleted &&  (
         <AiOutlineDelete className='' onClick={handleDeleteTask} />

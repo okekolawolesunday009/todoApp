@@ -11,14 +11,14 @@ interface FormListProps {
 
 const FormList: React.FC<FormListProps> = ({ todos, setTodos }) => {
   const location = useLocation();
-  const [isCompleted, setIsCompleted] = useState<boolean>(false);
-  const [isTaskCompleted, setIsTaskCompleted] = useState<boolean>(false);
+  const [isActivePage, setIsActivePage] = useState<boolean>(false);
+  const [isCompletedPage, setIsComletedPage] = useState<boolean>(false);
   const [selectedTask, setSelectedTask] = useState<string | null>(null);
 
   useEffect(() => {
     const loadedStep = Steps.find((stepItem) => stepItem.path === location.pathname);
-    setIsCompleted(loadedStep?.step === 3 || false);
-    setIsTaskCompleted(loadedStep?.step === 2 || false);
+    setIsActivePage(loadedStep?.step === 3 || false);
+    setIsComletedPage(loadedStep?.step === 2 || false);
 
     if (loadedStep?.step === 2 || loadedStep?.step === 3) {
       setSelectedTask(todos.find((task) => task.includes('(Completed)')) || null);
@@ -35,36 +35,26 @@ const FormList: React.FC<FormListProps> = ({ todos, setTodos }) => {
     });
   }
   const filteredTodos = todos.filter((task) => {
-    if (isTaskCompleted) {
+    if (isCompletedPage) {
       return task.includes('(Completed)');
-    } else if (location.pathname.includes('completed')) {
+    } else if (isActivePage) {
       return task.includes('(Completed)');
     }
     return [task.includes('(Completed)'), !task.includes('(Completed)')]
   }).map((task) => task.replace('(Completed)', ''));
   
-  // .map((task) => task.replace('(Completed)', ''));
 
   function handleDeleteAll() {
     setTodos([]);
   }
-  // function handleClickComplete(task: string) {
-  //   const updateTask = todos.map((todo: string) => {
-  //    if (todo === task){
-  //     return {...todos, isCompleted: !todos.isCompleted}; // Remove the "(Completed)" tag
-  //   } 
-  //    setTodos(updateTask)
-      
-  //   });
-  // }
-
+  
   function handleClickComplete(task: string) {
     const updatedTodos = todos.map((todo: string) => {
       if (todo === task) {
         if (todo.includes('(Completed)')) {
-          return todo.replace('(Completed)', ''); // Remove the "(Completed)" tag
+          return todo.replace('(Completed)', '');
         } else {
-          return todo + ' (Completed)'; // Add the "(Completed)" tag
+          return todo + ' (Completed)'; 
         }
       }
       return todo;
@@ -83,11 +73,11 @@ const FormList: React.FC<FormListProps> = ({ todos, setTodos }) => {
           step={index}
           onDeleteTask={onDeleteTask}
           handleClickComplete={handleClickComplete}
-          selected={(isTaskCompleted && isCompleted) || location.pathname.includes('Completed') ? todo === selectedTask : false}
+          selected={(isCompletedPage && isActivePage) || location.pathname.includes('Completed') ? todo === selectedTask : false}
         />
       ))}
       <div className="float-right mt-2">
-        {isCompleted && <Button text="delete all" type="delete" deleteTaskAll={handleDeleteAll} />}
+        {isActivePage && <Button text="delete all" type="delete" deleteTaskAll={handleDeleteAll} />}
       </div>
     </div>
   );

@@ -27,12 +27,12 @@ const Input: React.FC<InputProps> = ({ addTodo, placeholder }) => {
   };
 
   const location = useLocation();
-  const [isCompleted, setIsCompleted] = useState<boolean>(false);
+  const [isCompletedPage, setIsComletedPage] = useState<boolean>(false);
 
     useEffect(() => {
     const loadedStep = Steps.find((stepItem) => stepItem.path === location.pathname);
-      setIsCompleted(loadedStep?.step === 3 || false);
-      // isCompleted = 
+      setIsComletedPage(loadedStep?.step === 3 || false);
+      // isCompletedPage = 
      
     
 
@@ -41,9 +41,9 @@ const Input: React.FC<InputProps> = ({ addTodo, placeholder }) => {
     
   return (
     <form onSubmit={handleSubmit}
-    className={`flex space-x-4 relative ${isCompleted ? ' float-right' : 'flex'}`}>
+    className={`flex space-x-4 relative ${isCompletedPage ? ' float-right' : 'flex'}`}>
      <div className='flex-1 '>
-      {!isCompleted && (
+      {!isCompletedPage && (
      <input
       type="text"
       name="input"
@@ -58,7 +58,7 @@ const Input: React.FC<InputProps> = ({ addTodo, placeholder }) => {
       </div>
    
       <div>
-      {!isCompleted && (
+      {!isCompletedPage && (
      
         <Button text = "add" type = 'add' addTask = {() => addTodo}/>
  
