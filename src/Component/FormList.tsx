@@ -66,16 +66,21 @@ const FormList: React.FC<FormListProps> = ({ todos, setTodos }) => {
 
   return (
     <div>
-      {filteredTodos.map((todo: string, index: number) => (
+      {filteredTodos.map((todo: string, index: number) => {
+
+        const taskCreationTime = new Date();  
+
+        return (
         <TaskProp
           key={index}
           task={todo}
+          time={taskCreationTime}
           step={index}
           onDeleteTask={onDeleteTask}
           handleClickComplete={handleClickComplete}
           selected={(isCompletedPage && isActivePage) || location.pathname.includes('Completed') ? todo === selectedTask : false}
         />
-      ))}
+      )})}
       <div className="float-right mt-2">
         {isActivePage && <Button text="delete all" type="delete" deleteTaskAll={handleDeleteAll} />}
       </div>

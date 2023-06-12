@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Steps } from "../Component/Stepper/steps";
 import { AiOutlineDelete } from 'react-icons/ai';
+import './taskprop.css'
+
 
 interface TaskProps {
   task: string;
@@ -9,10 +11,11 @@ interface TaskProps {
   onDeleteTask?: (step: number) => void;
   handleClickComplete?: (task: string) => void;
   step: number;
+  time: Date;
   selected: boolean; 
 }
 
-const TaskProp: React.FC<TaskProps> = ({ task, step, onDeleteTask, selected, handleClickComplete }) => {
+const TaskProp: React.FC<TaskProps> = ({ task, time, step, onDeleteTask, selected, handleClickComplete }) => {
   const [completedTask, setCompletedTask] = useState<boolean>(false);
   const location = useLocation();
   const [isCompleted, setIsCompleted] = useState<boolean>(false);
@@ -38,7 +41,8 @@ const TaskProp: React.FC<TaskProps> = ({ task, step, onDeleteTask, selected, han
   }
 
   return (
-    <div className='flex justify-between'>
+    <div
+     className='flex justify-between items-center drop-shadow-lg taskprop  hover:text-white bg-white  mb-2 p-2 rounded-xl text-black'>
       <div className='flex space-x-3'>
         <input
           type="checkbox"
@@ -48,10 +52,13 @@ const TaskProp: React.FC<TaskProps> = ({ task, step, onDeleteTask, selected, han
           name=""
           id=""
         />
-        <h2 className={`text-small lg:text-3xl ${completedTask ? 'strike' : ''}`}>{task}</h2>
+        <div>
+        <h2 className={`text-small font-bold text-black hover:text-white lg:text-xl ${completedTask ? 'strike' : ''}`}>{task}</h2>
+        <p className='text-black text-xs lg:text-base hover:text-white'>{time.toLocaleString()}</p>
+        </div>
       </div>
       {isCompleted &&  (
-        <AiOutlineDelete className='' onClick={handleDeleteTask} />
+        <AiOutlineDelete className='text-black hover:text-white text-sm lg:text-lg' onClick={handleDeleteTask} />
       )}
     </div>
   );

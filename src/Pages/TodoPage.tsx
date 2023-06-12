@@ -74,8 +74,9 @@ export const Home = ()=>{
     // Title("Serch || Profile Home");
     return(
        
-        <div className = "">
+        <div className = "flex flex-col">
             <Outlet/>
+            <h1 className= 'text-xl float-left font-bold  mt-3 mb-[-30px]'>Check List</h1>
 
            
          </div>

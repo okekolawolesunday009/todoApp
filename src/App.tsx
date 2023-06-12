@@ -21,7 +21,7 @@ function App() {
   ]);
 
   return (
-    <div className="container h-auto drop-shadow w-auto lg:w-[608px] px-4 lg:mx-[414px] lg:mt-[32px] space-y-10" >
+    <div className="container h-[100vh] lg:600px drop-shadow w-auto lg:w-[608px] bg-white lg:rounded-xl  p-4 lg:mx-[414px] lg:mt-[32px] space-y-10" >
      
       <BrowserRouter>
     
@@ -39,6 +39,7 @@ function App() {
         <Route path="*" element={<NoMatch />} />
 
       </Routes>
+         
          <FormList todos = {todos} setTodos = {setTodos}/>
       
 

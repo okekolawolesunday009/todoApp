@@ -47,7 +47,7 @@ const Input: React.FC<InputProps> = ({ addTodo, placeholder }) => {
      <input
       type="text"
       name="input"
-      className="input outline-none"
+      className={`input outline-none drop-shadow-xl `}
       placeholder={placeholder || 'Add text'}
       value={todo}
       onChange={handleChange}
@@ -60,7 +60,7 @@ const Input: React.FC<InputProps> = ({ addTodo, placeholder }) => {
       <div>
       {!isCompletedPage && (
      
-        <Button text = "add" type = 'add' addTask = {() => addTodo}/>
+        <Button text = "add"  type = 'add' addTask = {() => addTodo}/>
  
       )
       }

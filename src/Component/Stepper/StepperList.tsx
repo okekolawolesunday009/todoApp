@@ -18,7 +18,6 @@ const StepperList = ({Steps}: StepperProps) => {
     const loadedStep = Steps.find((stepItem) => stepItem.path === location.pathname) as LoadedStepProps | undefined;
     if (loadedStep && loadedStep.step) {
       setActiveStep(loadedStep.step);
-      // console.log(loadedStep.step);
     }
 
   }, [Steps, location.pathname]);
@@ -39,7 +38,7 @@ const StepperList = ({Steps}: StepperProps) => {
       // console.log(activeStep);
 
     }
-    else if (stepItem.step != activeStep) {
+    else if (stepItem.step !== activeStep) {
       stepIcon = stepsIcon.notActive;
       // console.log(activeStep);
 
