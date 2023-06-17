@@ -1,0 +1,43 @@
+@import "  ./config.css";
+
+
+.taskprop:hover{
+    background-color: var(--primary);
+
+}
+.toggle-btn {
+    border-bottom: 1px solid #bdbdbd;
+    
+    width: 80%;
+    /* padding: px; */
+
+    text-align: center;
+    margin: auto;
+  }
+  .toggle-btn button{
+    padding: 0 10px;
+    
+
+  }
+  
+  .toggle-btn button:hover,
+  .toggle-btn button:focus {
+    border-bottom: 8px solid #2f80ed;
+    border-radius: 20px 10px 0 0;
+    
+  }
+
+  @media screen and (max-width: 768px) {
+    .toggle-btn {
+       
+        width: 100%;
+        padding: 0px;
+        
+      }
+      .toggle-btn button{
+        padding: 0 15px;
+        
+    
+      }
+    
+}

@@ -1,67 +1,70 @@
-import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
-import { Steps } from "../Component/Stepper/steps";
+import React, { useState } from 'react';
 import { AiOutlineDelete } from 'react-icons/ai';
-import './taskprop.css'
-
+import './styles/taskprop.css';
 
 interface TaskProps {
-  task: string;
-  handleClick?: () => void;
-  onDeleteTask?: (step: number) => void;
-  handleClickComplete?: (task: string) => void;
-  step: number;
-  time: Date;
-  selected: boolean; 
+  task: {
+    id: number;
+    text: string;
+    completed: boolean;
+  };
+  onDeleteTask?: (taskId: number | undefined) => void;
+  handleClickComplete?: (taskId: number) => void;
+  currentFilter?: string;
+  taskId?: number;
 }
 
-const TaskProp: React.FC<TaskProps> = ({ task, time, step, onDeleteTask, selected, handleClickComplete }) => {
-  const [completedTask, setCompletedTask] = useState<boolean>(false);
-  const location = useLocation();
-  const [isCompleted, setIsCompleted] = useState<boolean>(false);
+const TaskProp: React.FC<TaskProps> = ({
+  task,
+  currentFilter,
+  taskId,
+  onDeleteTask,
+  handleClickComplete,
+}) => {
 
-  useEffect(() => {
-    const loadedStep = Steps.find((stepItem) => stepItem.path === location.pathname);
-    setIsCompleted(loadedStep?.step === 3 || false);
-  }, [location.pathname]);
+  const [activeTask, setActiveTask] = useState<boolean>(false);
 
-  function handleClick() {
-    setCompletedTask(!completedTask);
-    if (handleClickComplete) {
-      handleClickComplete(task);
-    }
-
-  }
-  
-
-  function handleDeleteTask() {
+  const handleDeleteTask = () => {
     if (onDeleteTask) {
-      onDeleteTask(step);
+      onDeleteTask(taskId);
     }
-  }
+  };
+
+  const handleClick = () => {
+    setActiveTask(!activeTask);
+    localStorage.setItem(`activeTask_${taskId}`, JSON.stringify(!activeTask));
+    if (handleClickComplete) {
+      handleClickComplete(taskId!);
+    }
+  };
 
   return (
-    <div
-     className='flex justify-between items-center drop-shadow-lg taskprop  hover:text-white bg-white  mb-2 p-2 rounded-xl text-black'>
-      <div className='flex space-x-3'>
+    <div className={`flex justify-between items-center drop-shadow-lg taskprop mb-2 p-2 rounded-xl text-black ${task.completed ? 'completed' : ''}`}>
+      <div className="flex space-x-3">
         <input
           type="checkbox"
-          checked={completedTask} 
+          checked={activeTask}
           onChange={handleClick}
           className="w-3 lg:w-5"
           name=""
           id=""
         />
         <div>
-        <h2 className={`text-small font-bold text-black hover:text-white lg:text-xl ${completedTask ? 'strike' : ''}`}>{task}</h2>
-        <p className='text-black text-xs lg:text-base hover:text-white'>{time.toLocaleString()}</p>
+          <h2 className={`text-small font-bold text-black hover:text-white lg:text-xl 
+          ${activeTask ? 'strike' : ''}
+          `}>
+            {task.text}
+          </h2>
         </div>
       </div>
-      {isCompleted &&  (
-        <AiOutlineDelete className='text-black hover:text-white text-sm lg:text-lg' onClick={handleDeleteTask} />
+      {currentFilter === 'Completed' && (
+        <AiOutlineDelete
+          className="text-black hover:text-white text-sm lg:text-lg"
+          onClick={handleDeleteTask}
+        />
       )}
     </div>
   );
-}
+};
 
 export default TaskProp;

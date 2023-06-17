@@ -1,17 +1,17 @@
-import './input.css'
+import './styles/input.css'
 import Button from './Button';
-import react, {useState, useEffect, } from 'react';
-import { useLocation } from 'react-router-dom';
-import { Steps } from "../Component/Stepper/steps";
+import {useState, useEffect, } from 'react';
 
 
 
-type InputProps = {
+type FormProps = {
   addTodo: (todo: string) => void;
+  setTodos?: any
+  todos?: any
   placeholder?: string;
 };
 
-const Input: React.FC<InputProps> = ({ addTodo, placeholder }) => {
+const Input: React.FC<FormProps> = ({ setTodos,todos, addTodo, placeholder }) => {
   const [todo, setTodo] = useState<string>('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,24 +26,12 @@ const Input: React.FC<InputProps> = ({ addTodo, placeholder }) => {
     }
   };
 
-  const location = useLocation();
-  const [isCompletedPage, setIsComletedPage] = useState<boolean>(false);
-
-    useEffect(() => {
-    const loadedStep = Steps.find((stepItem) => stepItem.path === location.pathname);
-      setIsComletedPage(loadedStep?.step === 3 || false);
-      // isCompletedPage = 
-     
-    
-
-  }, [location.pathname]);
-
-    
+ 
   return (
     <form onSubmit={handleSubmit}
-    className={`flex space-x-4 relative ${isCompletedPage ? ' float-right' : 'flex'}`}>
+    className={`flex space-x-4 relative `}>
      <div className='flex-1 '>
-      {!isCompletedPage && (
+       
      <input
       type="text"
       name="input"
@@ -52,18 +40,12 @@ const Input: React.FC<InputProps> = ({ addTodo, placeholder }) => {
       value={todo}
       onChange={handleChange}
     />
-      )}
-
-     
+    
       </div>
    
       <div>
-      {!isCompletedPage && (
-     
+  
         <Button text = "add"  type = 'add' addTask = {() => addTodo}/>
- 
-      )
-      }
       </div>
 
     

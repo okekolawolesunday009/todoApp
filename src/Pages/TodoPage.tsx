@@ -1,101 +1,124 @@
-import Button from "../Component/Button";
-import Input from "../Component/Input";
-import { Link, Outlet} from 'react-router-dom';
-import react, {useState, useEffect, } from 'react';
-import { Title } from "../Component/titleHeader";
-
-export type TodoProps = {
-    setTodos?: any
-    todo?: any
-}
+  import Input from "../Component/Form";
+  import React, { useState, useEffect } from "react";
+  import TaskProp from "../Component/TaskProp";
+  import Button from "../Component/Button";
+  import '../Component/styles/taskprop.css';
 
 
-export const All = ({setTodos, todo}: TodoProps)=>{
 
- 
- const addTodo = (todo: string) => {
-    setTodos((prev: any) => [...prev, todo]);
-  };
-  useEffect(() => {
-    
-    setTodos((prev: any) => [...prev]);
-  }, [setTodos]);
-
-    Title("Todo || All");
-    return(
-        <div className="flex flex-col space-y-4">             
-           <div className = ''> <Input addTodo={addTodo} /></div>
-          
-        </div>
-        
-    )
-    
-};
-export const Active = ({setTodos}: TodoProps)=>{
-
- const addTodo = (todo: string) => {
-    setTodos((prev: any) => [...prev, todo]);
+  export type Todo = {
+    id: number;
+    text: string;
+    completed: boolean;
   };
 
-  
-  Title("Todo || Active");
-  return(
-        <div className="flex flex-col space-y-4">             
-        <div className = ''> <Input addTodo={addTodo} /></div>
-        
-     </div>
-        
-        
-    )
+  export const Home = () => {
+    const [currentFilter, setCurrentFilter] = useState<string>("All");
+    const [todos, setTodos] = useState<Todo[]>([ ]);
     
-};
-export const Completed = ({setTodos}: TodoProps)=>{
-    Title("Todo || Completed");
+    
+    useEffect(() => {
+      const storedTodos = localStorage.getItem('todos');
+      if (storedTodos) {
+        if (setTodos) {
+          setTodos(JSON.parse(storedTodos));
+        }
+      }
+    }, [setTodos]);
+
+    useEffect(() => {
+      localStorage.setItem('todos', JSON.stringify(todos));
+    }, [todos]);
+
+
+    const filteredTasks = (filter: string) => {
+      switch (filter) {
+        case "All":
+          return todos;
+        case "Active":
+          return todos.filter((todo) => !todo.completed);
+        case "Completed":
+          return todos.filter((todo) => todo.completed);
+        default:
+          return todos;
+      }
+    };
+    
+
+    
 
     const addTodo = (todo: string) => {
-       setTodos((prev: any) => [...prev, todo]);
-     };
-   
-    return(
-       
-        <div className="flex flex-col space-y-4">             
-        <div className = ''> <Input addTodo={addTodo} /></div>
+      const newTask = {
+        id: Date.now(),
+        text: todo,
+        completed: false,
+      };
+      if (setTodos) {
+          setTodos([...(todos), newTask]);
+        }
+    };
+
+    const handleClickComplete = (taskId: any) => {
+      const updatedTodos = (todos).map((todo) => {
+        if (todo.id === taskId) {
+          return { ...todo, completed: !todo.completed  };
+        }
+        return todo;
+      });
+    
+      if (setTodos) {
+        setTodos(updatedTodos);
+        localStorage.setItem("todos", JSON.stringify(updatedTodos));
+      }
+    };
+    
+    function handleDeleteTask(taskId: any) {
+      const updatedTasks = (todos).filter((task) => task.id !== taskId);
+      if (setTodos) {
+      setTodos(updatedTasks);
+      }
+    }
+    const setFilter = (filter: string) => {
+      setCurrentFilter(filter);
+    };
+
+    function handleDeleteAll() {
+      setTodos([]);
+    }
+    
+
+    return (
+      <div className="flex flex-col">
+        
+        <div className="mb-6 toggle-btn  text-center space-x-8 font-bold justify-between">
+          <button className="lg:text-xl" onClick={() => setFilter("All")}>All</button>
+          <button className="lg:text-xl " onClick={() => setFilter("Active")}>Active</button>
+          <button className="lg:text-xl" onClick={() => setFilter("Completed")}>Completed</button>
+        </div>
+        <div className="mt-4">
+        {currentFilter !== "Completed" && (
+          <Input setTodos={setTodos} addTodo={addTodo} todos={todos} />
+        )}
+        </div>
+        <div className="mt-4">
+        {filteredTasks(currentFilter).map((task: Todo) => (
+          <TaskProp 
+          key={task.id} 
+          task={task} 
+          taskId = {task.id}
+          currentFilter = {currentFilter} 
+          handleClickComplete={handleClickComplete}
+          onDeleteTask = {handleDeleteTask}/>
+        ))}
+        </div>
 
 
-       
-        
-     </div>
-    
-        
-    )
-    
-};
-export const Home = ()=>{
-    // Title("Serch || Profile Home");
-    return(
-       
-        <div className = "flex flex-col">
-            <Outlet/>
-            <h1 className= 'text-xl float-left font-bold  mt-3 mb-[-30px]'>Check List</h1>
+          <div className="float-right mt-2">
+          {currentFilter === 'Completed' &&
+          (<Button text="delete all" type="delete"  deleteTaskAll= {handleDeleteAll}    />)
+          }
+        </div>
+      </div>
+    );
+  };
 
-           
-         </div>
-    
-        
-    )
-    
-};
-export const NoMatch = ()=>{
-    // Title("Serch || Profile Home");
-    return(
-       
-        <div className = "">
-            
-          
-            no match
-         </div>
-    
-        
-    )
-    
-};

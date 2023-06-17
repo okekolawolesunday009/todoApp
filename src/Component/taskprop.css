@@ -1,7 +1,0 @@
-@import "../config.css";
-
-
-.taskprop:hover{
-    background-color: var(--primary);
-
-}

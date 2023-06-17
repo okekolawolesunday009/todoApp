@@ -1,4 +1,4 @@
-@import "../config.css";
+@import "./config.css";
 .input{
    border-radius: 12px;
    padding-left: 10px;
